@@ -1,33 +1,39 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using Vidly.Models;
-using Vidly.ViewModels;
 
 namespace Vidly.Controllers
 {
     public class MoviesController : Controller
     {
-        // GET: Movies/Random
-        public ActionResult Random()
+        // GET: Movies/Index
+        public ActionResult Index()
         {
-            var movie = new Movie() { Id=1, Name="Shrek" };
-            var customers = new List<Customer>
-            {
-                new Customer { Id = 1, Name= "Customer 1" },
-                new Customer { Id = 2, Name= "Customer 2"},
-                new Customer { Id = 3, Name= "Customer 3" },
-                new Customer { Id = 4, Name= "Customer 4"},
-                new Customer { Id = 5, Name= "Customer 5" },
-                new Customer { Id = 6, Name= "Customer 6"}
-            };
+            var movies = GetMovies().ToList();
 
-            var viewModel = new RandomMovieViewModel
-            {
-                Movie = movie,
-                Customers = customers
-            };
+            return View(movies);
+        }
 
-            return View(viewModel);
+        // GET: Movies/Details/Id
+        public ActionResult Details(int id)
+        {
+            var movie = GetMovies().FirstOrDefault(c => c.Id == id);
+            if (movie == null)
+                return HttpNotFound();
+
+            return View(movie);
+        }
+
+        [NonAction]
+        private List<Movie> GetMovies()
+        {
+            return new List<Movie>
+            {
+                new Movie { Id = 1, Name = "Major" },
+                new Movie { Id = 2, Name = "Jawan" },
+                new Movie { Id = 3, Name = "Pk" },
+            };
         }
     }
 }
