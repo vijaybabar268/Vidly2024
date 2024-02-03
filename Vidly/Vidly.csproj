@@ -207,9 +207,30 @@
     <Compile Include="Migrations\202402031301499_AddBirthdateToCustomer.Designer.cs">
       <DependentUpon>202402031301499_AddBirthdateToCustomer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202402031412312_AddMoviesToDatabase.cs" />
+    <Compile Include="Migrations\202402031412312_AddMoviesToDatabase.Designer.cs">
+      <DependentUpon>202402031412312_AddMoviesToDatabase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202402031626574_AddGenreToDatabase.cs" />
+    <Compile Include="Migrations\202402031626574_AddGenreToDatabase.Designer.cs">
+      <DependentUpon>202402031626574_AddGenreToDatabase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202402031635044_AddedPropToMovie.cs" />
+    <Compile Include="Migrations\202402031635044_AddedPropToMovie.Designer.cs">
+      <DependentUpon>202402031635044_AddedPropToMovie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202402031635377_SeedGenreTable.cs" />
+    <Compile Include="Migrations\202402031635377_SeedGenreTable.Designer.cs">
+      <DependentUpon>202402031635377_SeedGenreTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202402031643174_ModifyGenreIdReference.cs" />
+    <Compile Include="Migrations\202402031643174_ModifyGenreIdReference.Designer.cs">
+      <DependentUpon>202402031643174_ModifyGenreIdReference.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MembershipType.cs" />
@@ -324,6 +345,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202402031301499_AddBirthdateToCustomer.resx">
       <DependentUpon>202402031301499_AddBirthdateToCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202402031412312_AddMoviesToDatabase.resx">
+      <DependentUpon>202402031412312_AddMoviesToDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202402031626574_AddGenreToDatabase.resx">
+      <DependentUpon>202402031626574_AddGenreToDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202402031635044_AddedPropToMovie.resx">
+      <DependentUpon>202402031635044_AddedPropToMovie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202402031635377_SeedGenreTable.resx">
+      <DependentUpon>202402031635377_SeedGenreTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202402031643174_ModifyGenreIdReference.resx">
+      <DependentUpon>202402031643174_ModifyGenreIdReference.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
