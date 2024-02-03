@@ -179,17 +179,30 @@
     <Compile Include="Migrations\202402031112421_InitialModel.Designer.cs">
       <DependentUpon>202402031112421_InitialModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202402031124549_AddIsSubscribedToCustomer.cs" />
+    <Compile Include="Migrations\202402031124549_AddIsSubscribedToCustomer.Designer.cs">
+      <DependentUpon>202402031124549_AddIsSubscribedToCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202402031128562_AddMembershipType.cs" />
+    <Compile Include="Migrations\202402031128562_AddMembershipType.Designer.cs">
+      <DependentUpon>202402031128562_AddMembershipType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MembershipType.cs" />
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\RandomMovieViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\aspnet-Vidly-20240203094104.mdf" />
+    <Content Include="App_Data\aspnet-Vidly-20240203094104_log.ldf">
+      <DependentUpon>aspnet-Vidly-20240203094104.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap-lumen.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -253,9 +266,7 @@
     <Content Include="Views\Movies\Index.cshtml" />
     <Content Include="Views\Movies\Details.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -272,6 +283,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202402031112421_InitialModel.resx">
       <DependentUpon>202402031112421_InitialModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202402031124549_AddIsSubscribedToCustomer.resx">
+      <DependentUpon>202402031124549_AddIsSubscribedToCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202402031128562_AddMembershipType.resx">
+      <DependentUpon>202402031128562_AddMembershipType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
