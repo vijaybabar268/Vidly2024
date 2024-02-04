@@ -7,12 +7,14 @@
 
 <h2>@ViewBag.Title</h2>
 
-@if(!Model.Any())
-{ 
-    <text>We don't have any customer yet.</text>
+@Html.ActionLink("New", "New", "Customers", null, new { @class = "btn btn-secondary mb-3" })
+
+@if (!Model.Any())
+{
+    <p>We don't have any customer yet.</p>
 }
 else
-{ 
+{
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -27,9 +29,16 @@ else
                 <tr>
                     <td>@Html.ActionLink(@customer.Name, "Details", "Customers", new { id = customer.Id }, null)</td>
                     <td>@customer.MembershipType.Name</td>
-                    <td></td>
-                </tr>
-            }
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", "Customers", new { id = customer.Id }, new { @class = "btn btn-secondary" })
+                    @using (Html.BeginForm("Delete", "Customers", FormMethod.Post, new { style = "display: inline;", onSubmit=("return confirm('Are you sure you want to perform this operation?')") }))
+                    {
+                        <input type="hidden" name="id" value="@customer.Id" />
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    }
+                </td>
+            </tr>
+        }
         </tbody>
     </table>
 }
