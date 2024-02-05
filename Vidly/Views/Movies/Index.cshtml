@@ -7,6 +7,8 @@
 
 <h2>@ViewBag.Title</h2>
 
+@Html.ActionLink("New", "New", "Movies", null, new { @class = "btn btn-secondary mb-3" })
+
 @if (!Model.Any())
 {
     <text>We don't have any movie yet.</text>
@@ -27,7 +29,14 @@ else
                 <tr>
                     <td>@Html.ActionLink(@movie.Name, "Details", "Movies", new { id = movie.Id }, null)</td>
                     <td>@movie.Genre.Name</td>
-                    <td></td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", "Movies", new { id = movie.Id }, new { @class = "btn btn-secondary" })
+                        @using (Html.BeginForm("Delete", "Movies", FormMethod.Post, new { style = "display: inline;", onSubmit = ("return confirm('Are you sure you want to perform this operation?')") }))
+                        {
+                            <input type="hidden" name="id" value="@movie.Id" />
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        }
+                    </td>
                 </tr>
             }
         </tbody>
