@@ -43,41 +43,40 @@ namespace Vidly.Controllers
         {
             var genres = _context.Genres.ToList();
             var viewModel = new MovieFormViewModel
-            {
-                Movie = new Movie(),
+            {                
                 Genres = genres                
             };
 
             return View("MovieForm", viewModel);
         }
 
+        [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult Save(MovieFormViewModel viewModel)
+        public ActionResult Save(Movie movie)
         {
             if (!ModelState.IsValid)
             {
                 var genres = _context.Genres.ToList();
-                var model = new MovieFormViewModel
+                var model = new MovieFormViewModel(movie)
                 {
-                    Movie = new Movie(),
                     Genres = genres
                 };
 
                 return View("MovieForm", model);
             }
 
-            if (viewModel.Movie.Id == 0)
+            if (movie.Id == 0)
             {
-                viewModel.Movie.DateAdded = DateTime.UtcNow;
-                _context.Movies.Add(viewModel.Movie);
+                movie.DateAdded = DateTime.UtcNow;
+                _context.Movies.Add(movie);
             }
             else
             {
-                var movieInDb = _context.Movies.Include(m => m.Genre).Single(c => c.Id == viewModel.Movie.Id);
-                movieInDb.Name = viewModel.Movie.Name;
-                movieInDb.ReleaseDate = viewModel.Movie.ReleaseDate;
-                movieInDb.NumberInStock = viewModel.Movie.NumberInStock;
-                movieInDb.GenreId = viewModel.Movie.GenreId;
+                var movieInDb = _context.Movies.Include(m => m.Genre).Single(c => c.Id == movie.Id);
+                movieInDb.Name = movie.Name;
+                movieInDb.ReleaseDate = movie.ReleaseDate;
+                movieInDb.NumberInStock = movie.NumberInStock;
+                movieInDb.GenreId = movie.GenreId;
             }
 
             try
@@ -94,13 +93,12 @@ namespace Vidly.Controllers
 
         public ActionResult Edit(int id)
         {
-            var movieInDb = _context.Movies.Include(m => m.Genre).FirstOrDefault(c => c.Id == id);
-            if (movieInDb == null)
+            var movie = _context.Movies.Include(m => m.Genre).FirstOrDefault(c => c.Id == id);
+            if (movie == null)
                 return HttpNotFound();
 
-            var viewModel = new MovieFormViewModel
-            {
-                Movie = movieInDb,
+            var viewModel = new MovieFormViewModel(movie)
+            {                
                 Genres = _context.Genres.ToList()
             };
 
