@@ -1,6 +1,8 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Linq;
 using System.Web.Http;
+using Vidly.Dtos;
 using Vidly.Models;
 
 namespace Vidly.Controllers.Api
@@ -17,7 +19,7 @@ namespace Vidly.Controllers.Api
         // GET /api/movies
         public IHttpActionResult GetMovies()
         {
-            return Ok(_context.Movies.ToList());
+            return Ok(_context.Movies.ToList().Select(Mapper.Map<Movie, MovieDto>));
         }
 
         // GET /api/movies/1
@@ -27,27 +29,27 @@ namespace Vidly.Controllers.Api
             if (movie == null)
                 return NotFound();
 
-            return Ok(movie);
+            return Ok(Mapper.Map<Movie, MovieDto>(movie));
         }
 
         // POST /api/movies
         [HttpPost]
-        public IHttpActionResult CreateMovie(Movie movie)
+        public IHttpActionResult CreateMovie(MovieDto movieDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
+                        
+            var movie = Mapper.Map<MovieDto, Movie>(movieDto);
 
-            movie.DateAdded = DateTime.UtcNow;
-            
             _context.Movies.Add(movie);
             _context.SaveChanges();
 
-            return Ok();
+            return Created(new Uri(Request.RequestUri + "/" + movie.Id), movie);
         }
 
         // PUT /api/movies/1
         [HttpPut]
-        public IHttpActionResult UpdateMovie(int id, Movie movie)
+        public IHttpActionResult UpdateMovie(int id, MovieDto movieDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -56,11 +58,8 @@ namespace Vidly.Controllers.Api
             if (movieInDb == null)
                 return NotFound();
 
-            movieInDb.Name = movie.Name;
-            movieInDb.GenreId = movie.GenreId;
-            movieInDb.NumberInStock = movie.NumberInStock;
-            movieInDb.ReleaseDate = movie.ReleaseDate;
-
+            Mapper.Map<MovieDto, Movie>(movieDto, movieInDb);
+            
             _context.SaveChanges();
 
             return Ok();
