@@ -1,19 +1,22 @@
-﻿<nav class="navbar navbar-expand-lg bg-body-tertiary">
+﻿<div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
-        @Html.ActionLink("Vidly", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor04" aria-controls="navbarColor04" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarColor04">
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("Vidly", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>
                     @Html.ActionLink("Customers", "Index", "Customers", null, new { @class = "nav-link active" })
                 </li>
-                <li class="nav-item">
+                <li>
                     @Html.ActionLink("Movies", "Index", "Movies", null, new { @class = "nav-link active" })
-                </li>                
+                </li>
             </ul>
-            @Html.Partial("_LoginPartial")
         </div>
     </div>
-</nav>
+</div>
