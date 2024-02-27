@@ -9,46 +9,45 @@
 
 @Html.ActionLink("New", "New", "Movies", null, new { @class = "btn btn-primary mb-3", style = "margin-bottom:20px" })
 
-@if (!Model.Any())
-{
-    <p>We don't have any movie yet.</p>
-}
-else
-{
-    <table id="movie" class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Movie</th>
-                <th>Genre</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var movie in Model)
-            {
-                <tr>
-                    <td>@Html.ActionLink(@movie.Name, "Details", "Movies", new { id = movie.Id }, null)</td>
-                    <td>@movie.Genre.Name</td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", "Movies", new { id = movie.Id }, new { @class = "btn btn-link" }) |
-                        @*@using (Html.BeginForm("Delete", "Movies", FormMethod.Post, new { style = "display: inline;", onSubmit = ("return confirm('Are you sure you want to perform this operation?')") }))
-                        {
-                            <input type="hidden" name="id" value="@movie.Id" />
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        }*@
-                        <button data-movie-id="@movie.Id" class="btn btn-link js-delete">Delete</button>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+<table id="movie" class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Movie</th>
+            <th>Genre</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
 
 @section scripts
 {
     <script>
         $(document).ready(function () {
-            $("#movie").DataTable();
+            var table = $("#movie").DataTable({
+                ajax: {
+                    url: "/api/movies",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "name",
+                        render: function (data, type, movie) {
+                            return "<a href='/movies/Details/" + movie.id + "'/>" + movie.name + "</a>";
+                        }
+                    },
+                    {
+                        data: "genre.name",
+                    },
+                    {
+                        data: "id",
+                        render: function (data) {
+                            return "<a href='/movies/edit/" + data + "'/>Edit</a> | <button data-movie-id=" + data + " class='btn btn-link js-delete'>Delete</button>";
+                        }
+                    }
+                ]
+            });
 
             $("#movie").on("click", ".js-delete", function () {
                 var button = $(this);
@@ -57,6 +56,7 @@ else
                         url: "/api/movies/" + button.attr("data-movie-id"),
                         method: "DELETE",
                         success: function () {
+                            table.row(button.parents("tr")).remove().draw();
                             button.parents("tr").remove();
                         },
                         error: function (err) {
