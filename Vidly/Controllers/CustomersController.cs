@@ -20,13 +20,14 @@ namespace Vidly.Controllers
             base.Dispose(disposing);
         }
 
-        // GET: Customers/Index
         public ActionResult Index()
         {
-            return View();
+            if (User.IsInRole(RoleName.CanManageCustomers))
+                return View("List");
+
+            return View("ReadOnlyList");
         }
 
-        // GET: Customers/Details/Id
         public ActionResult Details(int id)
         {
             var customer = _context.Customers.Include(c => c.MembershipType).FirstOrDefault(c => c.Id == id);
@@ -36,6 +37,7 @@ namespace Vidly.Controllers
             return View(customer);
         }
         
+        [Authorize(Roles = RoleName.CanManageCustomers)]
         public ActionResult New()
         {
             var membershipTypes = _context.MembershipTypes.ToList();
@@ -82,6 +84,7 @@ namespace Vidly.Controllers
             return RedirectToAction("Index", "Customers");
         }
 
+        [Authorize(Roles = RoleName.CanManageCustomers)]
         public ActionResult Edit(int id)
         {
             var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
@@ -97,6 +100,7 @@ namespace Vidly.Controllers
             return View("CustomerForm", viewModel);
         }
 
+        [Authorize(Roles = RoleName.CanManageCustomers)]
         [HttpPost]
         public ActionResult Delete(int id)
         {
